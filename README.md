@@ -89,7 +89,7 @@ Good to know: if `find` returns an empty list you can still call `forEach`.
 $('#selector').find('> p').forEach(…);
 ```
 
-## $$() => NodeList
+## $$(selector: String) => NodeList
 
 Returns a NodeList that is iteratable with `forEach` and has a `length` property.
 
