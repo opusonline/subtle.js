@@ -1,0 +1,17 @@
+{
+  "name": "opusonline-subtle.js",
+  "version": "1.0.0",
+  "author": "Stefan Benicke <stefan.benicke@gmail.com>",
+  "description": "jQuery without jQuery and some more helpful functions",
+  "main": "subtle.js",
+  "keywords": [
+    "subtle",
+    "javascript",
+    "opusonline"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:opusonline/subtle.js.git"
+  },
+  "license": "MIT"
+}
