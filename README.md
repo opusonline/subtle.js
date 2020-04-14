@@ -3,6 +3,9 @@ subtle.js
 
 jQuery without jQuery and some more helpful functions
 
+[![npm](https://img.shields.io/npm/v/opusonline-subtle.js.svg)](https://npmjs.org/package/opusonline-subtle.js)
+[![npm downloads](https://img.shields.io/npm/dm/opusonline-subtle.js.svg)](https://npmjs.org/package/opusonline-subtle.js)
+
 Highlights:
 * Supports even IE9!
 * `$()` and `$$()` element selectors
