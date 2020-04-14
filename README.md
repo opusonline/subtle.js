@@ -17,9 +17,9 @@ Highlights:
 * `$.ready` and `$.fetch`
 
 Heavily inspired by:
-* [Bliss.js](https://blissfuljs.com/) by Lea Veriou
-* [min.js](https://github.com/remy/min.js) by Remy Sharp
-* [bling.js](https://gist.github.com/paulirish/12fb951a8b893a454b32) by Paul Irish
+* [Bliss.js](https://blissfuljs.com/) by [Lea Verou](https://lea.verou.me/)
+* [min.js](https://github.com/remy/min.js) by [Remy Sharp](https://remysharp.com/)
+* [bling.js](https://gist.github.com/paulirish/12fb951a8b893a454b32) by [Paul Irish](https://www.paulirish.com/)
 
 # Browser Support
 
@@ -341,7 +341,7 @@ lookup.splice(lookup.indexOf(B), 1);
 $.spliceInPlace(lookup, B);
 ```
 
-## $.isPrimitive(anything) => Boolean
+## $.isPrimitive(any) => Boolean
 
 ```javascript
 $.isPrimitive(100); // true
@@ -390,8 +390,8 @@ $.params({'data': [1, 2, 3, {'foo': 'bar'}]}); // data%5B0%5D=1&data%5B1%5D=2&da
 * `params` (Object|URLSearchParams): serialized to URL query
 * `headers` (Object): key value pairs that will getbe set as request headers
 * `user` and `password` (String): add user and password to host in URL for authentication
-* `cache` (Boolean): enforce a fresh response; appends _=<timestamp>; defaults to `false`
-* `body` (String|Blob|BufferSource|FormData|URLSearchParams|ReadableStream): payload sent as POST or PUT
+* `cache` (Boolean): enforce a fresh response; appends _=\<timestamp\>; defaults to `false`
+* `body` (String|Blob|BufferSource|FormData|URLSearchParams|ReadableStream|HTMLFormElement): payload sent as POST or PUT
 * `type` (String): `json`; only 'json' is supported; `body` can be an Object or JSON String.
 * `signal` (AbortSignal): [Abort pattern](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) used in `fetch`; when `$.fetch` is aborted it throws a `DOMException` with name `AbortError`; Attention: add polyfill for older browsers (e.g. https://polyfill.io/v3/polyfill.min.js?features=AbortController)
 * all XHR settings like `onload`, `onreadystatechange`, `onerror`, `onabort`, `ontimeout`, `overrideMimeType`, `upload` Object, `timeout`, `withCredentials`, etc.
@@ -432,7 +432,7 @@ $.fetch('/data', {'onload': function(event) { // use xhr.onload as success callb
     var response = event.target.response;
 }}).then(…).catch(…);
 
-$.fetch('/data', {'onprogress': function(event) { // use xhr.onload as success callback
+$.fetch('/data', {'onprogress': function(event) { // xhr.onprogress event
     var progress = event.loaded / event.total;
     log(progress);
 }}).then(…).catch(…);
@@ -440,7 +440,7 @@ $.fetch('/data', {'onprogress': function(event) { // use xhr.onload as success c
 var data = new FormData();
 var file = new Blob(['Demo'], {'type': 'text/plain'});
 data.append('file', file, 'demo.txt');
-$.fetch('/upload', {'method': 'POST', 'body': data, 'upload': {'onprogress': function(event) {
+$.fetch('/upload', {'method': 'POST', 'body': data, 'upload': {'onprogress': function(event) { // xhr.upload.onprogress event
     var uploadProgress = event.loaded / event.total;
     log(uploadProgress);
 }}});
@@ -470,15 +470,20 @@ $.getJSON('/data.json')
         log(data.foo);
     })
     .catch(function(error) {
-        log(error.name); // SyntaxError
-        log(error.message); // Unexpected token… or whatever
+        if (error.name === 'SyntaxError') {
+            log(error.message); // Unexpected token… or whatever
+        }
     });
+
+// To send and retrieve JSON
+var data = {'id': 123, 'username': 'test'};
+$.getJSON('/endpoint', {'method': 'POST', 'body': data, 'type': 'json'}).then(…).catch(…);
 ```
 
 ## $.getScript(url: String, [condition: Boolean]) => Promise
 
 Loads a script and resolves when script can be used.
-Optional condition reads: if <condition> then load else skip.
+Optional condition reads: if \<condition\> then load else skip.
 
 ```javascript
 var url = "https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.3.1/es5-sham.min.js";
@@ -487,7 +492,7 @@ $.getScript(url, !Array.prototype.forEach).then(…).catch(…);
 
 ## $.defer() => Promise
 
-Gorgious Lea Verou worked this out. See http://lea.verou.me/2016/12/resolve-promises-externally-with-this-one-weird-trick/
+Gorgious [Lea Verou](https://lea.verou.me/) worked this out. See http://lea.verou.me/2016/12/resolve-promises-externally-with-this-one-weird-trick/
 
 ```javascript
 var deferred = $.defer();
